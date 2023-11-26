@@ -1,0 +1,33 @@
+<div class="container mt-4" *ngIf="marvels.length>0">
+  <!-- First Row -->
+  <div class="row mb-4">
+    <div class="col">
+      <!-- Column 1 Content -->
+      <app-marvel [marvelName]="marvels[0].name" [marvelThumbnail]="marvels[0].thumbnail" ></app-marvel>
+    </div>
+    <div class="col">
+      <!-- Column 2 Content -->
+      <app-marvel [marvelName]="marvels[1].name" [marvelThumbnail]="marvels[1].thumbnail" ></app-marvel>
+    </div>
+    <div class="col">
+      <!-- Column 3 Content -->
+      <app-marvel [marvelName]="marvels[2].name" [marvelThumbnail]="marvels[2].thumbnail" ></app-marvel>
+    </div>
+  </div>
+
+  <!-- Second Row -->
+  <div class="row">
+    <div class="col">
+      <!-- Column 1 Content -->
+      <app-marvel [marvelName]="marvels[3].name" [marvelThumbnail]="marvels[3].thumbnail" ></app-marvel>
+    </div>
+    <div class="col">
+      <!-- Column 2 Content -->
+      <app-marvel [marvelName]="marvels[4].name" [marvelThumbnail]="marvels[4].thumbnail" ></app-marvel>
+    </div>
+    <div class="col">
+      <!-- Column 3 Content -->
+      <app-marvel [marvelName]="marvels[5].name" [marvelThumbnail]="marvels[5].thumbnail" ></app-marvel>
+    </div>
+  </div>
+</div>

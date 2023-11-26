@@ -1,0 +1,8 @@
+.cell {
+  text-align: center; /* Optional: Center the content within the cell */
+}
+
+.text {
+  display: block; /* Display the text as a block element */
+  margin-bottom: 10px; /* Adjust the margin between text and image */
+}
