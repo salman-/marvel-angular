@@ -1,6 +1,7 @@
-# MyTwitterApp
+# Marvels-App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
+![image](https://github.com/salman-/marvel-angular/assets/4312244/43a6d709-6df7-4d9a-b4a8-b690ed2bc836)
 
 ## Development server
 
