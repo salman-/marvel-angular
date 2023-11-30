@@ -8,7 +8,10 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install Angular CLI globally
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli --unsafe-perm=true --allow-root
+
+# Set environment variable to disable Angular CLI analytics prompts
+ENV NG_CLI_ANALYTICS=false
 
 # Install app dependencies
 RUN npm install
