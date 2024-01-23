@@ -3,6 +3,10 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
 ![image](https://github.com/salman-/marvel-angular/assets/4312244/43a6d709-6df7-4d9a-b4a8-b690ed2bc836)
 
+## Adding keys
+
+You should get the private and public keys from [marvel api website](https://developer.marvel.com/) and replace them in the `src/app/environment/envorpnment.prod.ts`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
