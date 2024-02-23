@@ -7,12 +7,13 @@ pipeline {
 
     tools {
         // Specify tool installations (e.g., NodeJS)
-        nodejs 'NodeJS' // Assumes you have a NodeJS installation named 'NodeJS'
+        nodejs '21.6.2' // Assumes you have a NodeJS installation named 'NodeJS'
     }
 
     stages {
         stage('Preparation') {
             steps {
+               bat 'npm --version'
                 // Checkout the code from a version control system
                 checkout scm
             }
