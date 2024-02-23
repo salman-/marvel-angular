@@ -18,6 +18,7 @@ export class FormComponent {
   }
 
   onSubmit(form: NgForm) {
+    console.log("is on submit working!!!")
     const apiEndpoint = this.helpersService.buildApiEndpoint();
     this.http.get(apiEndpoint)
       .pipe(map(responseData => {
