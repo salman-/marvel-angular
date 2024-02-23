@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         // Define environment variables if needed
+        MY_VARIABLE = "value"
     }
 
     tools {
