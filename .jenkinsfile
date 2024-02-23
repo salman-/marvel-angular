@@ -23,20 +23,20 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 // Install Angular CLI globally and project dependencies
-                bat 'npm install -g @angular/cli'
-                bat 'npm install'
+                sh 'npm install -g @angular/cli'
+                sh 'npm install'
             }
         }
         stage('Build') {
             steps {
                 // Build the Angular project
-                bat 'ng build'
+                sh 'ng build'
             }
         }
         stage('Test') {
             steps {
                 // Run tests
-                bat 'ng test --watch=false --browsers ChromeHeadless'
+                sh 'ng test --watch=false --browsers ChromeHeadless'
             }
         }
         // Running the application from Jenkins is not recommended for production
@@ -45,7 +45,7 @@ pipeline {
             steps {
                 // This command will attempt to run the server, but it will be terminated once the job finishes
                 // For demo purposes only
-                bat 'nohup ng serve --port 4200 &'
+                sh 'nohup ng serve --port 4200 &'
             }
         }
     }
