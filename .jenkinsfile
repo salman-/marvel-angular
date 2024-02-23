@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-               bat "echo "npm version""
+               bat 'echo "npm version"'
                bat "npm --version"
                 // Checkout the code from a version control system
                 checkout scm
