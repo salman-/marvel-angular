@@ -1,0 +1,62 @@
+pipeline {
+    agent any // This tells Jenkins to run this pipeline on any available agent
+
+    environment {
+        // Define environment variables if needed
+    }
+
+    tools {
+        // Specify tool installations (e.g., NodeJS)
+        nodejs 'NodeJS' // Assumes you have a NodeJS installation named 'NodeJS'
+    }
+
+    stages {
+        stage('Preparation') {
+            steps {
+                // Checkout the code from a version control system
+                checkout scm
+            }
+        }
+        stage('Install dependencies') {
+            steps {
+                // Install Angular CLI globally and project dependencies
+                sh 'npm install -g @angular/cli'
+                sh 'npm install'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Build the Angular project
+                sh 'ng build'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Run tests
+                sh 'ng test --watch=false --browsers ChromeHeadless'
+            }
+        }
+        // Running the application from Jenkins is not recommended for production
+        // This stage is for demonstration and might not work as expected in a real-world scenario
+        stage('Run') {
+            steps {
+                // This command will attempt to run the server, but it will be terminated once the job finishes
+                // For demo purposes only
+                sh 'nohup ng serve --port 4200 &'
+            }
+        }
+    }
+    post {
+        // Define actions to take in case of pipeline success, failure, etc.
+        always {
+            // For example, clean up or send notifications
+            echo 'This will always run regardless of the build status.'
+        }
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+    }
+}
