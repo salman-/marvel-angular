@@ -15,12 +15,12 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-               sh 'echo "npm version"'
+
                sh "npm --version"
 
                sh 'echo "Download and install Chrome"'
-               sh "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-               sh "sudo apt install ./google-chrome-stable_current_amd64.deb"
+               sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
+               sh 'sudo apt install ./google-chrome-stable_current_amd64.deb'
 
                 // Checkout the code from a version control system
                 checkout scm
