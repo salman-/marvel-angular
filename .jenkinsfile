@@ -19,15 +19,15 @@ pipeline {
                sh "npm --version"
 
                // Install wget
-               sh 'sudo apt-get update && sudo apt-get install -y wget'
+               sh 'apt-get update && sudo apt-get install -y wget'
                // Now download Chrome
                sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
                // And then you might want to install Chrome
-               sh 'sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f -y'
+               sh 'dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f -y'
 
                sh 'echo "Download and install Chrome"'
                sh 'wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
-               sh 'sudo apt install ./google-chrome-stable_current_amd64.deb'
+               sh 'apt install ./google-chrome-stable_current_amd64.deb'
 
                 // Checkout the code from a version control system
                 checkout scm
