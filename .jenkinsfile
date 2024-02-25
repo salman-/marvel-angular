@@ -16,7 +16,7 @@ pipeline {
         stage('Preparation') {
             steps {
 
-               USER root
+               sh "USER root"
                sh "npm --version"
 
                // Install wget
