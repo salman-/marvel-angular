@@ -10,11 +10,14 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-
+ 
                sh "npm --version"
 
                 // Checkout the code from a version control system
                 checkout scm
+
+               // Naviage to root folder of app
+               sh "cd ./marvel-angular" 
             }
         }
         stage('Install dependencies') {
