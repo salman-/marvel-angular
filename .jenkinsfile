@@ -17,6 +17,7 @@ pipeline {
                 checkout scm
 
                // Naviage to root folder of app
+               sh "ls"
                sh "cd ./marvel-angular" 
             }
         }
