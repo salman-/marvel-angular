@@ -7,11 +7,6 @@ pipeline {
         CHROME_BIN = "/usr/bin/google-chrome" 
     }
 
-    tools {
-        // Specify tool installations (e.g., NodeJS)
-        // nodejs "21.6.2" // Assumes you have a NodeJS installation named 'NodeJS'
-    }
-
     stages {
         stage('Preparation') {
             steps {
