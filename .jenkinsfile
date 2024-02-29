@@ -20,7 +20,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 // Install Angular CLI globally and project dependencies
-                sh 'npm install -g @angular/cli'
+                sh 'npm install @angular/cli'
                 sh 'npm install'
             }
         }
