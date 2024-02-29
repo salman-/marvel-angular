@@ -18,7 +18,6 @@ pipeline {
 
                // Naviage to root folder of app
                sh "ls"
-               sh "cd ./marvel-angular" 
             }
         }
         stage('Install dependencies') {
@@ -26,6 +25,9 @@ pipeline {
                 // Install Angular CLI globally and project dependencies
                 sh 'npm install @angular/cli'
                 sh 'npm install'
+               //
+               sh "echo 'check ng --version'"
+               sh "ng --version"
             }
         }
         stage('Build') {
