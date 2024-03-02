@@ -23,9 +23,8 @@ pipeline {
             steps {
                 sh 'npm install --force'                
                 // Install Angular CLI globally and project dependencies
-                sh 'npm install -g @angular/cli'
-                sh 'npm install @angular/core @angular/compiler @angular/animations @angular/router typescript zone.js --save'
-                
+                sh 'npm install @angular/cli'
+            
                //
                sh "echo 'check ng version'"
                sh "ng version"
