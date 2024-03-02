@@ -1,4 +1,4 @@
-pipeline {
+ -gpipeline {
     agent any // This tells Jenkins to run this pipeline on any available agent
 
     environment {
@@ -21,7 +21,7 @@ pipeline {
                  sh 'npm install --force'
 
                  // Install Angular CLI globally and project dependencies
-                 sh 'npm install @angular/cli'
+                 sh 'npm install -g @angular/cli'
             
                  // Check Angular CLI version
                  sh "ng version"
