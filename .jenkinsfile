@@ -25,8 +25,8 @@ pipeline {
                 sh 'npm install -g @angular/cli'
                 sh 'npm install -g'
                //
-               sh "echo 'check ng --version'"
-               sh "ng --version"
+               sh "echo 'check ng version'"
+               sh "ng version"
             }
         }
         stage('Build') {
