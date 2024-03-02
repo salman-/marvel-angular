@@ -16,7 +16,7 @@
         }
         stage('Install dependencies') {
             steps {
-
+                 sh "pwd"   
                  sh "npm --version"
                  sh 'npm install --force'
 
