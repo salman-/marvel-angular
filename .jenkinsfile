@@ -21,9 +21,11 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
+                sh 'npm install'                
                 // Install Angular CLI globally and project dependencies
                 sh 'npm install -g @angular/cli'
-                sh 'npm install'
+                sh 'npm install @angular/core @angular/compiler @angular/animations @angular/router typescript zone.js --save'
+                
                //
                sh "echo 'check ng version'"
                sh "ng version"
