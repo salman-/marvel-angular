@@ -1,57 +1,50 @@
 pipeline {
-    agent any // This tells Jenkins to run this pipeline on any available agent
+    agent any
 
     environment {
-        // Define environment variables if needed
         CHROME_BIN = "/usr/bin/google-chrome"
     }
 
     stages {
         stage('Preparation') {
             steps {
-                // Checkout the code from a version control system
                 checkout scm
             }
         }
         stage('Install dependencies') {
             steps {
-                 sh "pwd"   
-                 sh "npm --version"
-                 sh 'npm install'
+                sh "pwd"   
+                sh "npm --version"
+                sh 'npm install'
 
-                 // Install Angular CLI globally and project dependencies
-                 sh 'npm install @angular/cli'
+                // Install Angular CLI locally instead of globally
+                sh 'npm install @angular/cli'
             
-                 // Check Angular CLI version
-                 sh "ng version"
+                // Use the locally installed Angular CLI
+                sh "./node_modules/.bin/ng version"
             }
         }
         stage('Build') {
             steps {
-                // Build the Angular project
-                sh 'ng build'
+                // Use the locally installed Angular CLI
+                sh './node_modules/.bin/ng build'
             }
         }
         stage('Test') {
             steps {
-                // Run tests
-                sh 'ng test --watch=false --browsers ChromeHeadless'
+                // Use the locally installed Angular CLI
+                sh './node_modules/.bin/ng test --watch=false --browsers ChromeHeadless'
             }
         }
-        // Running the application from Jenkins is not recommended for production
-        // This stage is for demonstration and might not work as expected in a real-world scenario
         stage('Run') {
             steps {
-                // This command will attempt to run the server, but it will be terminated once the job finishes
-                // For demo purposes only
-                sh 'nohup ng serve --port 4200 &'
+                // This approach is still not recommended for production
+                sh 'nohup ./node_modules/.bin/ng serve --port 4200 &'
             }
         }
     }
     post {
-        // Define actions to take in case of pipeline success, failure, etc.
         always {
-            // For example, clean up or send notifications
             echo 'This will always run regardless of the build status.'
         }
         success {
