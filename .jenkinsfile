@@ -17,6 +17,9 @@ pipeline {
                 sh "npm --version"
                 sh 'npm install'
 
+                // http-server is used to run the built app
+                 sh 'npm install http-server'
+
                 // Install Angular CLI locally instead of globally
                 sh 'npm install @angular/cli'
             
@@ -38,8 +41,16 @@ pipeline {
         }
         stage('Run') {
             steps {
-                // This approach is still not recommended for production
-                sh 'nohup ./node_modules/.bin/ng serve --port 4200 &'
+        // Install a simple HTTP server to serve static files
+        sh 'npm install http-server'
+
+        // Navigate to the directory containing the built Angular app
+        // Assuming the Angular project name is 'your-angular-project-name', adjust as needed
+        sh 'cd dist/my-twitter-app/browser'
+
+        // Start the HTTP server
+        // Note: This will still not be suitable for background or production use without proper process management
+        sh 'nohup ../node_modules/.bin/http-server -p 4200 > /dev/null 2>&1 &'
             }
         }
     }
