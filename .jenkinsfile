@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         CHROME_BIN = "/usr/bin/google-chrome"
-        AZURE_CLIENT_ID = secrets.AZURE_CLIENT_ID
-        AZURE_CLIENT_SECRET = secrets.AZURE_CLIENT_SECRET
-        AZURE_TENANT_ID = secrets.AZURE_TENANT_ID
+        AZURE_CLIENT_ID = credentials('azure-client-id') // Maps the credential to the environment variable
+        AZURE_CLIENT_SECRET = credentials('azure-client-secret')
+        AZURE_TENANT_ID = credentials('azure-tenant-id')
     }
 
     stages {
@@ -45,7 +45,8 @@ pipeline {
         stage('Deploy') {
             steps {
               sh 'echo "Deploy to Azure"'
-              sh ' az login --service-principal -u AZURE_CLIENT_ID -p AZURE_CLIENT_SECRET }} --tenant AZURE_TENANT_ID'
+              sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID'
+
             }
         }
     }
