@@ -39,18 +39,18 @@ pipeline {
                 sh './node_modules/.bin/ng test --watch=false --browsers ChromeHeadless'
             }
         }
-        stage('Run') {
+        stage('Deploy') {
             steps {
         // Install a simple HTTP server to serve static files
-        sh 'npm install http-server'
+        //sh 'npm install http-server'
 
         // Navigate to the directory containing the built Angular app
         // Assuming the Angular project name is 'your-angular-project-name', adjust as needed
-        sh 'cd dist/my-twitter-app/browser'
+        //sh 'cd dist/my-twitter-app/browser'
 
         // Start the HTTP server
         // Note: This will still not be suitable for background or production use without proper process management
-        sh 'nohup ../node_modules/.bin/http-server -p 4200 > /dev/null 2>&1 &'
+        //sh 'nohup ../node_modules/.bin/http-server -p 4200 > /dev/null 2>&1 &'
             }
         }
     }
