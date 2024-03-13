@@ -5,7 +5,7 @@ pipeline {
         CHROME_BIN = "/usr/bin/google-chrome"
         AZURE_CLIENT_ID = credentials('azure-client-id') // Maps the credential to the environment variable
         AZURE_CLIENT_SECRET = credentials('azure-client-secret')
-        AZURE_TENANT_ID = credentials('azure-tenant-id')
+        AZURE_TENANT_ID = credentials('AZURE_TENANT_ID')
     }
 
     stages {
