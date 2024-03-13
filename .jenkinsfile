@@ -43,9 +43,9 @@ pipeline {
             steps {
 
                    withCredentials([
-            string(credentialsId: 'd2e2f88b-21cc-443e-99d2-cf09258cb2ce', variable: 'AZURE_TENANT_ID'),
-            string(credentialsId: '92564f3f-900a-4ac7-a425-be3f832cdb0d', variable: 'AZURE_CLIENT_ID'),
-            string(credentialsId: '9f852668-e81d-48f6-81bb-eb048b7ff422', variable: 'AZURE_CLIENT_SECRET')
+            string(credentialsId: 'AZURE_TENANT_ID', variable: 'AZURE_TENANT_ID'),
+            string(credentialsId: 'AZURE_CLIENT_ID', variable: 'AZURE_CLIENT_ID'),
+            string(credentialsId: 'AZURE_CLIENT_SECRET', variable: 'AZURE_CLIENT_SECRET')
         ]) {
                     
                   sh 'echo "Deploy to Azure"'
