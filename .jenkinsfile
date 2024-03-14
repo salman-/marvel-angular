@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         CHROME_BIN = "/usr/bin/google-chrome"
-        // Set the Docker config path within the Jenkins workspace
         DOCKER_CONFIG = "${WORKSPACE}/.docker"
         IMAGE = 'salmanprivatedockerregistery.azurecr.io/marvel-app'
     }
@@ -42,29 +41,26 @@ pipeline {
                     string(credentialsId: 'AZURE_CLIENT_SECRET', variable: 'AZURE_CLIENT_SECRET')
                 ]) {
                     sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID'
-                    
+
                     script {
                         def acrLoginCommand = "az acr login --name salmanprivatedockerregistery --expose-token --output tsv --query accessToken"
                         def acrToken = sh(script: acrLoginCommand, returnStdout: true).trim()
-                        def encodedToken = acrToken.bytes.encodeBase64().toString()
                         def dockerConfigJson = """{
                             "auths": {
                                 "salmanprivatedockerregistery.azurecr.io": {
-                                    "auth": "${encodedToken}"
+                                    "auth": "${acrToken}"
                                 }
                             }
                         }"""
                         writeFile file: "${DOCKER_CONFIG}/config.json", text: dockerConfigJson
                     }
 
-                    // Use a Kaniko container to build and push the Docker image
-                    script {
-                        docker.image('gcr.io/kaniko-project/executor:latest').inside("--entrypoint=''") {
-                            sh """
-                            /kaniko/executor --context ${WORKSPACE} --dockerfile ${WORKSPACE}/Dockerfile \
-                                             --destination ${IMAGE} --cache=true
-                            """
-                        }
+                    // Ensuring Kaniko is used within its Docker container
+                    docker.image('gcr.io/kaniko-project/executor:latest').inside("--entrypoint=''") {
+                        sh """
+                        /kaniko/executor --context ${WORKSPACE} --dockerfile ${WORKSPACE}/Dockerfile \
+                                         --destination ${IMAGE} --cache=true
+                        """
                     }
                 }
             }
