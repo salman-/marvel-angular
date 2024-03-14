@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         CHROME_BIN = "/usr/bin/google-chrome"
-        DOCKER_CONFIG = '/kaniko/.docker/'
+        DOCKER_CONFIG = "${WORKSPACE}/.docker"
         IMAGE = 'salmanprivatedockerregistery.azurecr.io/marvel-app'
     }
 
