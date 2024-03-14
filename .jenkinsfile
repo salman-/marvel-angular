@@ -52,7 +52,7 @@ pipeline {
                   sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID'
 
                   sh 'docker --version'
-                  sh 'docker build -t salmanprivatedockerregistery.azurecr.io/marvel-app .'  
+                  sh 'docker run -v /var/run/docker.sock:/var/run/docker.sock -t salmanprivatedockerregistery.azurecr.io/marvel-app'  
                 }
 
             }
