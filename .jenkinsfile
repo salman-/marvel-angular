@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         CHROME_BIN = "/usr/bin/google-chrome"
-        DOCKER_CONFIG = "${WORKSPACE}/.docker"
+        DOCKER_CONFIG = "${env.WORKSPACE}/.docker"
         IMAGE = 'salmanprivatedockerregistery.azurecr.io/marvel-app'
     }
 
@@ -53,16 +53,13 @@ pipeline {
                             }
                         }"""
                         writeFile file: "${DOCKER_CONFIG}/config.json", text: dockerConfigJson
-
-                        // Here we use script block for executing Docker command
-                        def customImage = docker.build("myImage:${env.BUILD_ID}")
-                        customImage.inside {
-                            sh """
-                            /kaniko/executor --context ${env.WORKSPACE} --dockerfile ${env.WORKSPACE}/Dockerfile \
-                                             --destination ${env.IMAGE} --cache=true
-                            """
-                        }
                     }
+
+                    sh """
+                    docker login salmanprivatedockerregistery.azurecr.io --username $AZURE_CLIENT_ID --password $AZURE_CLIENT_SECRET
+                    docker build -t ${IMAGE} .
+                    docker push ${IMAGE}
+                    """
                 }
             }
         }
