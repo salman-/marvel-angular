@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                sh "pwd"   
+                sh "pwd"
                 sh "npm --version"
                 sh 'npm install'
                 sh 'npm install http-server'
@@ -53,14 +53,15 @@ pipeline {
                             }
                         }"""
                         writeFile file: "${DOCKER_CONFIG}/config.json", text: dockerConfigJson
-                    }
 
-                    // Ensuring Kaniko is used within its Docker container
-                    docker.image('gcr.io/kaniko-project/executor:latest').inside("--entrypoint=''") {
-                        sh """
-                        /kaniko/executor --context ${WORKSPACE} --dockerfile ${WORKSPACE}/Dockerfile \
-                                         --destination ${IMAGE} --cache=true
-                        """
+                        // Here we use script block for executing Docker command
+                        def customImage = docker.build("myImage:${env.BUILD_ID}")
+                        customImage.inside {
+                            sh """
+                            /kaniko/executor --context ${env.WORKSPACE} --dockerfile ${env.WORKSPACE}/Dockerfile \
+                                             --destination ${env.IMAGE} --cache=true
+                            """
+                        }
                     }
                 }
             }
