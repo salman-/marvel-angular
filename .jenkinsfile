@@ -55,6 +55,8 @@ pipeline {
                         writeFile file: "${DOCKER_CONFIG}/config.json", text: dockerConfigJson
                     }
 
+                    sh 'docker version || echo "Cannot connect to the Docker daemon"'
+                    sh 'groups || echo "Current user groups"'
                     sh """
                     docker login salmanprivatedockerregistery.azurecr.io --username $AZURE_CLIENT_ID --password $AZURE_CLIENT_SECRET
                     docker build -t ${IMAGE} .
