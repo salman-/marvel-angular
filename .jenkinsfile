@@ -42,29 +42,14 @@ pipeline {
                 ]) {
                     sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID'
 
-                    script {
-                        def acrLoginCommand = "az acr login --name salmanprivatedockerregistery --expose-token --output tsv --query accessToken"
-                        def acrToken = sh(script: acrLoginCommand, returnStdout: true).trim()
-                        def encodedToken = acrToken.bytes.encodeBase64().toString()
-                        def dockerConfigJson = """{
-                            "auths": {
-                                "salmanprivatedockerregistery.azurecr.io": {
-                                    "auth": "${encodedToken}"
-                                }
-                            }
-                        }"""
-                        writeFile file: "${DOCKER_CONFIG}/config.json", text: dockerConfigJson
-                    }
+                    // Use Azure CLI to login to ACR without manual token handling
+                    sh 'az acr login --name salmanprivatedockerregistery'
 
                     // Diagnostic commands
                     sh 'docker version || echo "Cannot connect to the Docker daemon"'
                     sh 'groups || echo "Current user groups"'
                     
-                    // Login to Docker Registry
-                    sh """
-                    echo $AZURE_CLIENT_SECRET | docker login salmanprivatedockerregistery.azurecr.io --username $AZURE_CLIENT_ID --password-stdin
-                    """
-
+                    // Login to Docker Registry not required since az acr login handles it
                     // Build and push Docker image
                     sh """
                     docker build -t ${IMAGE} .
