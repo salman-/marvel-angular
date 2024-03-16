@@ -46,7 +46,7 @@ pipeline {
                     string(credentialsId: 'AZURE_CLIENT_SECRET', variable: 'AZURE_CLIENT_SECRET')
                 ]) {
                     sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID'
-                    sh 'az acr login --name salmanprivatedockerregistery'
+                    sh 'az acr login --name salmanprivatedockerregistery --expose-token'
 
                     // Using Kaniko to build and push the Docker image
                     sh """
