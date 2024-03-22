@@ -23,7 +23,7 @@ pipeline {
                 sh "pwd"
                 sh "npm --version"
                 sh 'npm install'
-                sh 'npm install http-server'
+                //sh 'npm install http-server'
                 sh 'npm install @angular/cli'
                 sh "./node_modules/.bin/ng version"
             }
