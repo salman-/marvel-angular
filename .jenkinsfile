@@ -49,11 +49,12 @@ pipeline {
                     sh 'az acr login --name salmanprivatedockerregistery --expose-token'
 
                     // Using Kaniko to build and push the Docker image
+                    
                     sh """
-                    /kaniko/executor --context ${BUILD_CONTEXT} --dockerfile ${DOCKERFILE} \
-                                     --destination ${IMAGE} \
-                                     --azure-container-registry-config ${DOCKER_CONFIG}/acr_cred.json
-                    """
+                     kaniko-executor --context ${BUILD_CONTEXT} --dockerfile ${DOCKERFILE} \
+                                    --destination ${IMAGE}:latest \
+                                    --azure-container-registry-config ${DOCKER_CONFIG}/acr_cred.json
+                     """
                 }
             }
         }
