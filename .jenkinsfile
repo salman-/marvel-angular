@@ -38,7 +38,7 @@ pipeline {
                 sh './node_modules/.bin/ng test --watch=false --browsers ChromeHeadless'
             }
         }
-        stage('Deploy') {
+        stage('Build Image/Push') {
             steps {
                 withCredentials([
                     string(credentialsId: 'AZURE_TENANT_ID', variable: 'AZURE_TENANT_ID'),
