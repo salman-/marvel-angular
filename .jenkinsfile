@@ -48,13 +48,11 @@ pipeline {
                     sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID'
                     sh 'az acr login --name salmanprivatedockerregistery --expose-token'
 
-                    // Using Kaniko to build and push the Docker image
-                    
-                    sh """
-                     kaniko-executor --context ${BUILD_CONTEXT} --dockerfile ${DOCKERFILE} \
-                                    --destination ${IMAGE}:latest \
-                                    --azure-container-registry-config ${DOCKER_CONFIG}/acr_cred.json
-                     """
+                    // Tag Docker image
+                    sh 'docker tag marvel-app:latest salmanprivatedockerregistery.azurecr.io/marvel-app:latest'
+
+                    // Push Created Docker image
+                    sh 'docker push salmanprivatedockerregistery.azurecr.io/marvel-app:latest'
                 }
             }
         }
